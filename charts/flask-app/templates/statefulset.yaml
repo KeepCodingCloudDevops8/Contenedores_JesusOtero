@@ -47,7 +47,7 @@ spec:
       name: mysql-pvc
     spec:
       accessModes: 
-        - {{ .Values.persistentVolumeClaim.accessModes }}
+        {{- toYaml .Values.persistentVolumeClaim.accessModes | nindent 8 }}
       resources:
         requests:
           storage: 1Gi
