@@ -46,7 +46,8 @@ spec:
   - metadata:
       name: mysql-pvc
     spec:
-      accessModes: [ "ReadWriteOnce" ]
+      accessModes: 
+        - {{ .Values.persistentVolumeClaim.accessModes }}
       resources:
         requests:
           storage: 1Gi

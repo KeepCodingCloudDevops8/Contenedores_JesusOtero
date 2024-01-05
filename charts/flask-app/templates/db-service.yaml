@@ -5,9 +5,9 @@ metadata:
   labels:
     {{- include "flask-app.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.db-service.type }}
+  type: {{ .Values.dbservice.type }}
   ports:
-    - port: {{ .Values.db-service.port }}
-      targetPort: {{ .Values.db-service.port }}
+    - port: {{ .Values.dbservice.port }}
+      targetPort: {{ .Values.dbservice.port }}
   selector:
     app: {{ include "flask-app.name" . }}
