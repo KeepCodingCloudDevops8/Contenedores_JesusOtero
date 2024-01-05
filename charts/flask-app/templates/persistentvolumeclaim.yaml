@@ -5,7 +5,8 @@ metadata:
   name: {{ include "flask-app.fullname" . }}-pvc
 spec:
   accessModes:
-    - {{ .Values.persistentVolumeClaim.accessModes }}
+    #- {{ .Values.persistentVolumeClaim.accessModes }}
+    - ReadWriteOnce
   resources:
     requests:
       storage: {{ .Values.persistentVolumeClaim.size | quote }}
