@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "flask-app.fullname" . }}-db
   labels:
-    {{ .Values.labels.db }}
+    app: {{ .Values.labels.db }}
 spec:
   type: {{ .Values.dbservice.type }}
   ports:

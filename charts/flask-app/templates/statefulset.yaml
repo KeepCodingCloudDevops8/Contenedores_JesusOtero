@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: {{ include "flask-app.fullname" . }}-db
   labels:
-    {{ .Values.labels.db }}
+    app: {{ .Values.labels.db }}
 spec:
   serviceName: "{{ .Chart.Name }}-db"
   replicas: 1
