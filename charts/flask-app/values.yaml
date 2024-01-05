@@ -8,6 +8,10 @@ service:
   type: NodePort
   port: 5000
 
+db-service:
+  type: ClusterIP
+  port: 3306
+
 ingress:
   enabled: true
   host: localhost
@@ -15,16 +19,14 @@ ingress:
 
 mysql:
   MYSQL_USER: "flaskuser"
-  MYSQL_PASSWORD: "patodegoma"
+  MYSQL_PASSWORD: "cGF0b2RlZ29tYQ=="
   MYSQL_DATABASE: "contador-db"
   MYSQL_ROOT_PASSWORD: "root1234"
   mount_path: "/var/lib/mysql"
 
 configMap:
-  MYSQL_ROOT_PASSWORD: "root1234"
   MYSQL_DB: "contador-db"
   MYSQL_USER: "flaskuser"
-  MYSQL_PASSWORD: "patodegoma"
   MYSQL_HOST: "flask-db"
 
 autoscaling:
@@ -38,5 +40,7 @@ persistentVolumeClaim:
   accessModes:
     - ReadWriteOnce
   size: 1Gi
+
+
 
 
