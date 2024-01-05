@@ -16,16 +16,16 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - weight: 100
-            podAffinityTerm:
-              labelSelector:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
                   matchExpressions:
-                  - key: app
-                    operator: In
-                    values:
-                    - {{ include "flask-app.fullname" . }}
-              topologyKey: "kubernetes.io/hostname"
+                    - key: app
+                      operator: In
+                      values:
+                        - {{ include "flask-app.fullname" . }}
+                topologyKey: "kubernetes.io/hostname"
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
