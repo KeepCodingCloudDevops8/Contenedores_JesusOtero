@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ include "flask-app.fullname" . }}-db
+  labels:
+    {{- include "flask-app.labels" . | nindent 4 }}
+spec:
+  serviceName: "{{ .Chart.Name }}-db"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ include "flask-app.name" . }}-db
+  template:
+    metadata:
+      labels:
+        app: {{ include "flask-app.name" . }}-db
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - {{ include "flask-app.fullname" . }}
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: mysql
+        image: mysql
+        envFrom:
+        - configMapRef:
+            name: {{ include "flask-app.fullname" . }}-db-config
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "flask-app.fullname" . }}-secret
+              key: MYSQL_ROOT_PASSWORD
+        volumeMounts:
+        - name: mysql-pvc
+          mountPath: {{ .Values.mysql.mount_path }}
+        ports:
+        - containerPort: 3306
+  volumeClaimTemplates:
+  - metadata:
+      name: mysql-pvc
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi

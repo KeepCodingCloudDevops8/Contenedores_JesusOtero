@@ -1,0 +1,12 @@
+{{- if .Values.persistentVolumeClaim.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ include "flask-app.fullname" . }}-pvc
+spec:
+  accessModes:
+    - {{ .Values.persistentVolumeClaim.accessModes | quote }}
+  resources:
+    requests:
+      storage: {{ .Values.persistentVolumeClaim.size | quote }}
+{{- end }}

@@ -1,0 +1,42 @@
+replicas: 1
+image:
+  repository: jesusod/flask-app
+  pullPolicy: Always
+  tag: "1.0"
+
+service:
+  type: NodePort
+  port: 5000
+
+ingress:
+  enabled: true
+  host: localhost
+  pathType: Prefix
+
+mysql:
+  MYSQL_USER: "flaskuser"
+  MYSQL_PASSWORD: "patodegoma"
+  MYSQL_DATABASE: "contador-db"
+  MYSQL_ROOT_PASSWORD: "root1234"
+  mount_path: "/var/lib/mysql"
+
+configMap:
+  MYSQL_ROOT_PASSWORD: "root1234"
+  MYSQL_DB: "contador-db"
+  MYSQL_USER: "flaskuser"
+  MYSQL_PASSWORD: "patodegoma"
+  MYSQL_HOST: "flask-db"
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+
+persistentVolumeClaim:
+  enabled: true
+  accessModes:
+    - ReadWriteOnce
+  size: 1Gi
+
+
