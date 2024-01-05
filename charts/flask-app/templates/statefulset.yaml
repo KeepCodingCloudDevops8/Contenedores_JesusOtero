@@ -3,17 +3,17 @@ kind: StatefulSet
 metadata:
   name: {{ include "flask-app.fullname" . }}-db
   labels:
-    {{- include "flask-app.labels" . | nindent 4 }}
+    {{ .Values.labels.db }}
 spec:
   serviceName: "{{ .Chart.Name }}-db"
   replicas: 1
   selector:
     matchLabels:
-      app: {{ include "flask-app.name" . }}-db
+      app: {{ .Values.labels.db }}
   template:
     metadata:
       labels:
-        app: {{ include "flask-app.name" . }}-db
+        app: {{ .Values.labels.db }}
     spec:
       affinity:
         podAffinity:
@@ -23,7 +23,7 @@ spec:
               - key: app
                 operator: In
                 values:
-                - {{ include "flask-app.fullname" . }}
+                - {{ include "flask-app.fullname" . }}-db
             topologyKey: "kubernetes.io/hostname"
       containers:
       - name: mysql

@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "flask-app.fullname" . }}
   labels:
-    {{- include "flask-app.labels" . | nindent 4 }}
+    {{ .Values.labels.app }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -11,4 +11,4 @@ spec:
       targetPort: {{ .Values.service.port }}
       nodePort: {{ .Values.service.nodePort }}
   selector:
-    app: {{ include "flask-app.name" . }}
+    app: {{ .Values.labels.app }}

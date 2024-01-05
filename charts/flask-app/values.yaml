@@ -4,6 +4,10 @@ image:
   pullPolicy: Always
   tag: "latest"
 
+labels:
+  db: mysql
+  app: flask-app
+
 service:
   type: NodePort
   port: 5000

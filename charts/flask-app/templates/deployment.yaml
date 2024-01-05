@@ -3,16 +3,16 @@ kind: Deployment
 metadata:
   name: {{ include "flask-app.fullname" . }}
   labels:
-    {{- include "flask-app.labels" . | nindent 4 }}
+    {{ .Values.labels.app }}
 spec:
   replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
-      app: {{ include "flask-app.fullname" . }}
+      app: {{ .Values.labels.app }}
   template:
     metadata:
       labels:
-        app: {{ include "flask-app.fullname" . }}
+        app: {{ .Values.labels.app }}
     spec:
       affinity:
         podAntiAffinity:
