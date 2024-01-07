@@ -24,7 +24,7 @@ Dockerfile: Contiene script ara construir la imagen del contenedor de nuestra ap
     Hemos usado multistage para que la imagen sea mas pequeña
     Ejecutamos build -t seguido del nombre de nuestra imagen desde el directorio raiz.
 
-    ![image](https://github.com/jesusod/Contenedores_JesusOtero/assets/99189407/469861bb-24d4-410e-ad36-8e565399639b)
+![image](https://github.com/jesusod/Contenedores_JesusOtero/assets/99189407/469861bb-24d4-410e-ad36-8e565399639b)
 
 Docker Hub: Hemos subido la imagen a Docker Hub despues del paso anterior.
 
